@@ -1,0 +1,2 @@
+# grupoG
+Proyecto de almacenamiento
