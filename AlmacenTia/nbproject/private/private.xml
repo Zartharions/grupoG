@@ -3,17 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Modelo/ConexionBase.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Controlador/ControlProductos.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/test/Modelo/ConsultaProductosIT.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Excepciones/EscrituraExcepcion.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Modelo/Productos.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Excepciones/TiaExcepciones.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Excepciones/LecturaExcepcion.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Vista/frmProductos.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Tia/AlmacenTia.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Modelo/ConsultaProductos.java</file>
-            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Excepciones/DatoDuplicadoExcepcion.java</file>
+            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Controlador/ClienteConexion.java</file>
+            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Vista/frmInicio.java</file>
+            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Controlador/ProveedorConex.java</file>
+            <file>file:/C:/Users/Ignacio%20Valencia/Desktop/AlmacenTia/src/Modelo/Proveedor.java</file>
         </group>
     </open-files>
 </project-private>

@@ -1,19 +1,26 @@
 package Modelo;
 
-/*
- Clase que representa un producto en el sistema.
- Contiene atributos como ID, código, nombre, precio y cantidad.
+/**
+ *
+ * @author usuario
  */
-
 public class Productos {
-    private int id; // Identificador único del producto
-    private int codigo; // Código del producto
-    private String nombre; // Nombre del producto
-    private Double precio; // Precio del producto
-    private int cantidad;  // Cantidad disponible en inventario
+    private int id, stock;
+    private String codigo, nombre,proveedor;
+    private double precio;
 
-    
-    // Métodos getter y setter para acceder y modificar los atributos
+    public Productos() {
+    }
+
+    public Productos(int id, int stock, String codigo, String nombre, String proveedor, double precio) {
+        this.id = id;
+        this.stock = stock;
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.proveedor = proveedor;
+        this.precio = precio;
+    }
+
     public int getId() {
         return id;
     }
@@ -22,11 +29,19 @@ public class Productos {
         this.id = id;
     }
 
-    public int getCodigo() {
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -38,19 +53,21 @@ public class Productos {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(String proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
+    
+    
 }
