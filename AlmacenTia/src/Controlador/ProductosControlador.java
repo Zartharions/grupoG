@@ -284,4 +284,5 @@ public class ProductosControlador {
         // Mostrar mensaje de error usando JOptionPane
         JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
+
 }

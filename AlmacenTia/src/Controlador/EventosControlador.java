@@ -87,7 +87,6 @@ public class EventosControlador {
 
     /**
      * Verifica si la longitud de la entrada numérica es válida.
-     * @param input Entrada numérica a verificar.
      */
     public void validarLongitudNumerica(JTextField textField) {
         String input = textField.getText();

@@ -28,7 +28,7 @@ public class ProveedorControlador {
         // Validación del CI
         
         if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() != 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de exactamente 10 dígitos.");
+            throw new EscrituraExcepcion("RUC inválido. Debe ser un número positivo de exactamente 10 dígitos.");
         }
         
         if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() > 10) {
@@ -47,7 +47,7 @@ public class ProveedorControlador {
         
         // Validación de CI duplicado
         if (existeRuc(proveedor.getRuc())) {
-            throw new DatoDuplicadoExcepcion("Ya existe un proveedor registrado con este CI.");
+            throw new DatoDuplicadoExcepcion("Ya existe un proveedor registrado con este RUC.");
         }
 
         // Validación de nombre duplicado
@@ -60,11 +60,15 @@ public class ProveedorControlador {
         // Validación del CI
         
         if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() != 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de exactamente 10 dígitos.");
+            throw new EscrituraExcepcion("RUC inválido. Debe ser un número positivo de exactamente 10 dígitos.");
+        }
+        
+        if (existeProveedor(proveedor.getNombre())) {
+            throw new DatoDuplicadoExcepcion("Ya existe un proveedor registrado con este nombre.");
         }
         
         if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() > 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de máximo 10 dígitos.");
+            throw new EscrituraExcepcion("Ruc inválido. Debe ser un número positivo de máximo 10 dígitos.");
         }
         
         // Validación de campos obligatorios
@@ -92,9 +96,10 @@ public class ProveedorControlador {
             ps.setString(5, pr.getRazon());
             ps.execute();
             return true;
-        } catch (SQLException | IllegalArgumentException | EscrituraExcepcion | LecturaExcepcion e) {
-            mostrarMensajeDeError(e.getMessage());
-            return false;
+        } catch (SQLException | IllegalArgumentException | EscrituraExcepcion | LecturaExcepcion | DatoDuplicadoExcepcion e) {
+            //mostrarMensajeDeError(e.getMessage());
+            throw new DatoDuplicadoExcepcion(e.getMessage());
+            //return false;
         } finally {
             cerrarConexion();
         }
@@ -140,7 +145,7 @@ public class ProveedorControlador {
         }
     }
 
-    public boolean ActualizarProveedor(Proveedor pr) throws LecturaExcepcion, EscrituraExcepcion {
+    public boolean ActualizarProveedor(Proveedor pr) throws LecturaExcepcion, EscrituraExcepcion, DatoDuplicadoExcepcion {
         String sql = "UPDATE proveedor SET ruc=?, nombre=?, telefono=?, direccion=?, razon=? WHERE id=?";
         try {
             con = cn.getConexion();
