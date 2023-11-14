@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 /**
  * Clase que gestiona la conexión y operaciones con la tabla proveedor en la base de datos.
  */
-public class ProveedorConex {
+public class ProveedorControlador {
     private Connection con;
     private ConexionBase cn = new ConexionBase();
     private PreparedStatement ps;

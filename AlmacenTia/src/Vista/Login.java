@@ -304,7 +304,7 @@ int xMouse, yMouse;
     }//GEN-LAST:event_jpfContraseniaMousePressed
 
     private void lblIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIniciarMouseClicked
-        Controlador.LoginConexion objLogin = new Controlador.LoginConexion();
+        Controlador.LoginControlador objLogin = new Controlador.LoginControlador();
         objLogin.validarUsuario(txtUsuario, jpfContrasenia);
         dispose();
     }//GEN-LAST:event_lblIniciarMouseClicked

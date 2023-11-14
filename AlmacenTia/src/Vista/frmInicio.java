@@ -6,17 +6,17 @@
 package Vista;
 
 
-import Controlador.ClienteConexion;
+import Controlador.ClienteControlador;
 import Modelo.Clientes;
 import Modelo.Config;
 import Modelo.Detalles;
-import Controlador.Eventos;
+import Controlador.EventosControlador;
 import Modelo.Productos;
-import Controlador.ProductosConex;
+import Controlador.ProductosControlador;
 import Modelo.Proveedor;
-import Controlador.ProveedorConex;
+import Controlador.ProveedorControlador;
 import Modelo.Venta;
-import Controlador.VentaConexion;
+import Controlador.VentaControlador;
 import Excepciones.DatoDuplicadoExcepcion;
 import Excepciones.EscrituraExcepcion;
 import Excepciones.LecturaExcepcion;
@@ -38,15 +38,15 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class frmInicio extends javax.swing.JFrame {
     int xMouse, yMouse;
     Clientes cl = new Clientes();
-    ClienteConexion clicon = new ClienteConexion();
+    ClienteControlador clicon = new ClienteControlador();
     Proveedor pr = new Proveedor();
-    ProveedorConex prconex = new ProveedorConex();
+    ProveedorControlador prconex = new ProveedorControlador();
     Productos pro = new Productos();
-    ProductosConex proConex = new ProductosConex();
+    ProductosControlador proConex = new ProductosControlador();
     Venta v = new Venta();
-    VentaConexion vConex = new VentaConexion();
+    VentaControlador vConex = new VentaControlador();
     Detalles Dv = new Detalles();
-    Eventos events = new Eventos();
+    EventosControlador events = new EventosControlador();
     DefaultTableModel modelo = new DefaultTableModel();
     DefaultTableModel tmp = new DefaultTableModel();
     int item;
@@ -425,6 +425,11 @@ public class frmInicio extends javax.swing.JFrame {
         });
 
         txtDescripcionHome.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        txtDescripcionHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescripcionHomeActionPerformed(evt);
+            }
+        });
         txtDescripcionHome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescripcionHomeKeyTyped(evt);
@@ -1695,7 +1700,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDetVentaActionPerformed
 
     private void txtCiHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiHomeKeyTyped
-        events.validarNumeros(evt);
+        
     }//GEN-LAST:event_txtCiHomeKeyTyped
 
     private void txtCiHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiHomeKeyPressed
@@ -1717,11 +1722,11 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCiHomeKeyPressed
 
     private void txtDescripcionHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionHomeKeyTyped
-        events.validarLetras(evt);
+       
     }//GEN-LAST:event_txtDescripcionHomeKeyTyped
 
     private void txtCantidadHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadHomeKeyTyped
-        events.validarNumeros(evt);
+       
     }//GEN-LAST:event_txtCantidadHomeKeyTyped
 
     private void txtCantidadHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadHomeKeyPressed
@@ -1770,7 +1775,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadHomeKeyPressed
 
     private void txtIdHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHomeKeyTyped
-        events.validarNumeros(evt);
+        
     }//GEN-LAST:event_txtIdHomeKeyTyped
 
     private void txtIdHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHomeKeyPressed
@@ -1804,6 +1809,10 @@ public class frmInicio extends javax.swing.JFrame {
     private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdCliActionPerformed
+
+    private void txtDescripcionHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionHomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionHomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

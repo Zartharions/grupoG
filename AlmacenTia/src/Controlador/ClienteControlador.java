@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * Clase que maneja la conexión y operaciones relacionadas con la entidad Cliente.
  * Implementa métodos para validar, registrar, listar, eliminar, actualizar y buscar clientes en la base de datos.
  */
-public class ClienteConexion {
+public class ClienteControlador {
     ConexionBase cn = new ConexionBase(); // Objeto de conexión a la base de datos
     Connection con;
     PreparedStatement ps;

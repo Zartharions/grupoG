@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 /**
  * Clase que gestiona la conexión y validación de inicio de sesión de usuarios.
  */
-public class LoginConexion {
+public class LoginControlador {
     
     // Consulta SQL para validar usuario
     private static final String SELECT_USER_QUERY = "SELECT * FROM usuario WHERE usuario.Nombre = ? AND usuario.contraseña = ?";

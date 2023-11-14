@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 /**
  * Clase que maneja eventos relacionados con la validación de entrada en campos de texto.
  */
-public class Eventos {
+public class EventosControlador {
 
     // Constantes para algunos caracteres especiales
     private static final char BACKSPACE = (char) KeyEvent.VK_BACK_SPACE;

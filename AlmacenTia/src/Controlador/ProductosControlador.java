@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 /**
  * Controlador para la gestión de productos y configuraciones.
  */
-public class ProductosConex {
+public class ProductosControlador {
     Connection con;
     ConexionBase cn = new ConexionBase();
     PreparedStatement ps;
