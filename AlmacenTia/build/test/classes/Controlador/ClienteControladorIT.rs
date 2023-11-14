@@ -1,2 +1,0 @@
-ClienteControladorTest
-Controlador.ClienteControladorTest

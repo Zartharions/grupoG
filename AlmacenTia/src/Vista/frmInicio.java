@@ -29,7 +29,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+//import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
 
 /**
  *
@@ -66,7 +67,7 @@ public class frmInicio extends javax.swing.JFrame {
         txtDirecHome.setVisible(false);
         txtRazonHome.setVisible(false);
         txtIdVenta.setVisible(false);
-        AutoCompleteDecorator.decorate(cbxProveedor);
+        //AutoCompleteDecorator.decorate(cbxProveedor);
         proConex.ConsultarProveedor(cbxProveedor);
     }
 
@@ -1507,6 +1508,8 @@ public class frmInicio extends javax.swing.JFrame {
                 } catch (LecturaExcepcion ex) {
                     Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (EscrituraExcepcion ex) {
+                    Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (DatoDuplicadoExcepcion ex) {
                     Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 

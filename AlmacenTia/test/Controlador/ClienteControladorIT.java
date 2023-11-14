@@ -16,28 +16,33 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.runner.notification.Failure;
 
-/**
- *
- * @author Ignacio Valencia
- */
+import org.junit.runner.notification.RunListener;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
 public class ClienteControladorIT {
-    
+
     public ClienteControladorIT() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -76,23 +81,22 @@ public class ClienteControladorIT {
             assertEquals("Número de teléfono inválido. Debe tener 9 o 10 dígitos.", e.getMessage());
         }
     }
-    
+
     @Test
     public void testRegistrarCliente_CIExistente() {
         ClienteControlador clienteControlador = new ClienteControlador();
         Clientes clienteExistente = new Clientes();
-        clienteExistente.setCi(1234567890); 
+        clienteExistente.setCi(1234567890);
         clienteExistente.setNombre("NombreClientes");
         clienteExistente.setDireccion("DireccionCliente");
         clienteExistente.setRazon("RazonCliente");
         clienteExistente.setTelefono(123456789);
-        
 
         try {
             // Intentar registrar un nuevo cliente con un CI existente
             clienteControlador.RegistrarCliente(clienteExistente);
             fail("Se esperaba una DatoDuplicadoExcepcion para CI existente");
-        } catch (DatoDuplicadoExcepcion | LecturaExcepcion | EscrituraExcepcion  e) {
+        } catch (DatoDuplicadoExcepcion | LecturaExcepcion | EscrituraExcepcion e) {
             assertEquals("Ya existe un cliente registrado con este CI.", e.getMessage());
         }
     }
@@ -102,7 +106,7 @@ public class ClienteControladorIT {
         ClienteControlador clienteControlador = new ClienteControlador();
         Clientes clienteExistente = new Clientes();
         clienteExistente.setNombre("NombreExistente");
-        clienteExistente.setCi(1234567888);     
+        clienteExistente.setCi(1234567888);
         clienteExistente.setDireccion("DireccionCliente");
         clienteExistente.setRazon("RazonCliente");
         clienteExistente.setTelefono(123456789);
@@ -111,9 +115,11 @@ public class ClienteControladorIT {
             // Intentar registrar un nuevo cliente con un nombre existente
             clienteControlador.RegistrarCliente(clienteExistente);
             fail("Se esperaba una DatoDuplicadoExcepcion para nombre existente");
-        } catch (DatoDuplicadoExcepcion | LecturaExcepcion | EscrituraExcepcion  e) {
+        } catch (DatoDuplicadoExcepcion | LecturaExcepcion | EscrituraExcepcion e) {
             assertEquals("Ya existe un cliente registrado con este nombre.", e.getMessage());
+        
+            
         }
     }
-   
+
 }
