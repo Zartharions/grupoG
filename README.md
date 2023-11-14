@@ -25,7 +25,7 @@ Ahora debemos configurar la conexión de base al proyecto, expandimos el Source 
 
 
 
-En este paso se debe colocar la clave con la que se configuró el MySql entre las comillas de la línea 13 
+En este paso se debe colocar la clave con la que se configuró el MySql entre las comillas 
    String password = "123456789";  // Contraseña de la base de datos
 
 
