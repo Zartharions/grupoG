@@ -97,9 +97,9 @@ public class ProveedorControlador {
             ps.execute();
             return true;
         } catch (SQLException | IllegalArgumentException | EscrituraExcepcion | LecturaExcepcion | DatoDuplicadoExcepcion e) {
-            //mostrarMensajeDeError(e.getMessage());
-            throw new DatoDuplicadoExcepcion(e.getMessage());
-            //return false;
+            mostrarMensajeDeError(e.getMessage());
+            //throw new DatoDuplicadoExcepcion(e.getMessage());
+            return false;
         } finally {
             cerrarConexion();
         }

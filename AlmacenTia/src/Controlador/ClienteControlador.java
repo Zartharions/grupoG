@@ -97,9 +97,9 @@ public class ClienteControlador {
             ps.execute();
             return true;
         } catch (SQLException | DatoDuplicadoExcepcion | LecturaExcepcion | NumberFormatException | EscrituraExcepcion e) {
-            //JOptionPane.showMessageDialog(null, e.toString());
-            throw new EscrituraExcepcion(e.getMessage());
-            //return false;        
+            JOptionPane.showMessageDialog(null, e.toString());
+            //throw new EscrituraExcepcion(e.getMessage());
+            return false;        
         } finally {
             try {
                 con.close();
