@@ -10,15 +10,15 @@ package Modelo;
  * @author usuario
  */
 public class Clientes {
-    private int Id, Ci, Telefono;
-    private String Nombre, Direccion, Razon;
+    private int Id;
+    private String Nombre, Direccion, Razon, Ci, Telefono;
 
     // Constructor vacío, necesario para algunos frameworks de persistencia.
     public Clientes() {
     }
 
     // Constructor con todos los atributos.
-    public Clientes(int Id, int Ci, int Telefono, String Nombre, String Direccion, String Razon) {
+    public Clientes(int Id, String Ci, String Telefono, String Nombre, String Direccion, String Razon) {
         this.Id = Id;
         this.Ci = Ci;
         this.Telefono = Telefono;
@@ -37,19 +37,19 @@ public class Clientes {
         this.Id = Id;
     }
 
-    public int getCi() {
+    public String getCi() {
         return Ci;
     }
 
-    public void setCi(int Ci) {
+    public void setCi(String Ci) {
         this.Ci = Ci;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return Telefono;
     }
 
-    public void setTelefono(int Telefono) {
+    public void setTelefono(String Telefono) {
         this.Telefono = Telefono;
     }
 

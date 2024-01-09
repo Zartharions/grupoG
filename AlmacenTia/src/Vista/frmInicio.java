@@ -20,10 +20,28 @@ import Controlador.VentaControlador;
 import Excepciones.DatoDuplicadoExcepcion;
 import Excepciones.EscrituraExcepcion;
 import Excepciones.LecturaExcepcion;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +87,7 @@ public class frmInicio extends javax.swing.JFrame {
         txtIdVenta.setVisible(false);
         //AutoCompleteDecorator.decorate(cbxProveedor);
         proConex.ConsultarProveedor(cbxProveedor);
+        
     }
 
     public void ListarCliente() {
@@ -754,7 +773,7 @@ public class frmInicio extends javax.swing.JFrame {
                                             .addComponent(txtTelefonoCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtDireccionCli, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(0, 196, Short.MAX_VALUE)
+                                .addGap(0, 237, Short.MAX_VALUE)
                                 .addComponent(txtIdCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel10)
@@ -961,11 +980,11 @@ public class frmInicio extends javax.swing.JFrame {
                                 .addComponent(txtDireccionProvee, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtRazonProvee, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1153,7 +1172,7 @@ public class frmInicio extends javax.swing.JFrame {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnActualizarProdu, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNuevoProdu, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel6Layout.setVerticalGroup(
@@ -1224,7 +1243,7 @@ public class frmInicio extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(txtIdVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1379,12 +1398,11 @@ public class frmInicio extends javax.swing.JFrame {
                 pro.setId(Integer.parseInt(txtIdProducto.getText()));
                 if(proConex.ActualizarProveedor(pro)==true){
                     JOptionPane.showMessageDialog(null, "Producto Modificado");
-                    }
+                }
                 LimpiarTabla();
                 ListarProducto();
                 LimpiarProducto();
-                    
-                
+
             }
         }
     }//GEN-LAST:event_btnActualizarProduActionPerformed
@@ -1420,8 +1438,8 @@ public class frmInicio extends javax.swing.JFrame {
             pro.setPrecio(Double.parseDouble(txtPrecioProdu.getText()));
             try {
                 if(proConex.RegistrarProductos(pro)==true){
-                JOptionPane.showMessageDialog(null, "Producto Registrado");}
-                
+                    JOptionPane.showMessageDialog(null, "Producto Registrado");}
+
             } catch (DatoDuplicadoExcepcion ex) {
                 Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LecturaExcepcion ex) {
@@ -1434,7 +1452,7 @@ public class frmInicio extends javax.swing.JFrame {
             LimpiarTabla();
             ListarProducto();
             LimpiarProducto();
- 
+
         } else {
             JOptionPane.showMessageDialog(null, "Campos Vacios");
         }
@@ -1477,14 +1495,13 @@ public class frmInicio extends javax.swing.JFrame {
                 int id = Integer.parseInt(txtIdProveedor.getText());
                 if(prconex.EliminarProveedor(id)==true){
                     JOptionPane.showMessageDialog(null, "Proveedor Eliminado");}
-            }     
-        }    
+            }
+        }
         else{
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
-            
+
         }
-           
-            
+
     }//GEN-LAST:event_btnEliminarProveActionPerformed
 
     private void btnNuevoProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoProveActionPerformed
@@ -1496,15 +1513,15 @@ public class frmInicio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         }else{
             if (!"".equals(txtRucProvee.getText()) || !"".equals(txtNombreProvee.getText()) || !"".equals(txtTelefonoProvee.getText()) || !"".equals(txtDireccionProvee.getText()) || !"".equals(txtRazonProvee.getText())) {
-                pr.setRuc(Integer.parseInt(txtRucProvee.getText()));
+                pr.setRuc(txtRucProvee.getText());
                 pr.setNombre(txtNombreProvee.getText());
-                pr.setTelefono(Integer.parseInt(txtTelefonoProvee.getText()));
+                pr.setTelefono(txtTelefonoProvee.getText());
                 pr.setDireccion(txtDireccionProvee.getText());
                 pr.setRazon(txtRazonProvee.getText());
                 pr.setId(Integer.parseInt(txtIdProveedor.getText()));
                 try {
                     if(prconex.ActualizarProveedor(pr)==true){
-                    JOptionPane.showMessageDialog(null, "Proveedor Modificado");}
+                        JOptionPane.showMessageDialog(null, "Proveedor Modificado");}
                 } catch (LecturaExcepcion ex) {
                     Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (EscrituraExcepcion ex) {
@@ -1512,7 +1529,7 @@ public class frmInicio extends javax.swing.JFrame {
                 } catch (DatoDuplicadoExcepcion ex) {
                     Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 LimpiarTabla();
                 ListarProveedor();
                 LimpiarProveedor();
@@ -1523,16 +1540,16 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnGuardarProveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProveActionPerformed
         if (!"".equals(txtRucProvee.getText()) || !"".equals(txtNombreProvee.getText()) || !"".equals(txtTelefonoProvee.getText())
             || !"".equals(txtDireccionProvee.getText())|| !"".equals(txtRazonProvee.getText())) {
-            pr.setRuc(Integer.parseInt(txtRucProvee.getText()));
+            pr.setRuc(txtRucProvee.getText());
             pr.setNombre(txtNombreProvee.getText());
-            pr.setTelefono(Integer.parseInt(txtTelefonoProvee.getText()));
+            pr.setTelefono(txtTelefonoProvee.getText());
             pr.setDireccion(txtDireccionProvee.getText());
             pr.setRazon(txtRazonProvee.getText());
-            
+
             try {
                 if(prconex.RegistrarProveedor(pr)==true){
-                JOptionPane.showMessageDialog(null, "Proveedor Registrado");}
-                
+                    JOptionPane.showMessageDialog(null, "Proveedor Registrado");}
+
             } catch (DatoDuplicadoExcepcion ex) {
                 Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
             } catch (LecturaExcepcion ex) {
@@ -1543,7 +1560,7 @@ public class frmInicio extends javax.swing.JFrame {
             LimpiarTabla();
             ListarProveedor();
             LimpiarProveedor();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Campos Vacios");
         }
@@ -1579,6 +1596,10 @@ public class frmInicio extends javax.swing.JFrame {
         events.validarNumeros(evt);
     }//GEN-LAST:event_txtRucProveeKeyTyped
 
+    private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdCliActionPerformed
+
     private void btnEliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarClienteActionPerformed
         if (!"".equals(txtIdCli.getText())) {
             int pregunta = JOptionPane.showConfirmDialog(null, "Estas Seguro de Eliminarlo");
@@ -1604,22 +1625,21 @@ public class frmInicio extends javax.swing.JFrame {
         } else {
             if (!"".equals(txtCiCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText())
                 || !"".equals(txtDireccionCli.getText())) {
-                cl.setCi(Integer.parseInt(txtCiCliente.getText()));
+                cl.setCi(txtCiCliente.getText());
                 cl.setNombre(txtNombreCliente.getText());
-                cl.setTelefono(Integer.parseInt(txtTelefonoCliente.getText()));
+                cl.setTelefono(txtTelefonoCliente.getText());
                 cl.setDireccion(txtDireccionCli.getText());
                 cl.setRazon(txtRazonCli.getText());
                 cl.setId(Integer.parseInt(txtIdCli.getText()));
                 try {
                     if(true == clicon.ActualizarCliente(cl)){
                         JOptionPane.showMessageDialog(null, "Proveedor Modificado");
-                }
-                    
-                    
+                    }
+
                 } catch (DatoDuplicadoExcepcion | LecturaExcepcion | EscrituraExcepcion ex) {
                     Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                
+
                 LimpiarTabla();
                 ListarCliente();
                 LimpiarCliente();
@@ -1632,14 +1652,14 @@ public class frmInicio extends javax.swing.JFrame {
     private void btnGuardarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarClienteActionPerformed
         if (!"".equals(txtCiCliente.getText()) || !"".equals(txtNombreCliente.getText()) || !"".equals(txtTelefonoCliente.getText())
             || !"".equals(txtDireccionCli.getText())|| !"".equals(txtRazonCli.getText())) {
-            cl.setCi(Integer.parseInt(txtCiCliente.getText()));
+            cl.setCi(txtCiCliente.getText());
             cl.setNombre(txtNombreCliente.getText());
-            cl.setTelefono(Integer.parseInt(txtTelefonoCliente.getText()));
+            cl.setTelefono(txtTelefonoCliente.getText());
             cl.setDireccion(txtDireccionCli.getText());
             cl.setRazon(txtRazonCli.getText());
             try {
                 if(true== clicon.RegistrarCliente(cl)){
-                    JOptionPane.showMessageDialog(null, "Cliente Registrado");}   
+                    JOptionPane.showMessageDialog(null, "Cliente Registrado");}
             } catch (DatoDuplicadoExcepcion | LecturaExcepcion ex) {
                 Logger.getLogger(frmInicio.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NumberFormatException ex) {
@@ -1650,7 +1670,7 @@ public class frmInicio extends javax.swing.JFrame {
             LimpiarTabla();
             LimpiarCliente();
             ListarCliente();
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Campos Vacios");
         }
@@ -1692,6 +1712,7 @@ public class frmInicio extends javax.swing.JFrame {
                 RegistrarVenta();
                 RegistrarDetalle();
                 ActualizarStock();
+                pdf();
                 LimpiarTablaVenta();
                 LimpiarClienteVenta();
             }else{
@@ -1703,7 +1724,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDetVentaActionPerformed
 
     private void txtCiHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiHomeKeyTyped
-        
+
     }//GEN-LAST:event_txtCiHomeKeyTyped
 
     private void txtCiHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCiHomeKeyPressed
@@ -1725,11 +1746,15 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCiHomeKeyPressed
 
     private void txtDescripcionHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionHomeKeyTyped
-       
+
     }//GEN-LAST:event_txtDescripcionHomeKeyTyped
 
+    private void txtDescripcionHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionHomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionHomeActionPerformed
+
     private void txtCantidadHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadHomeKeyTyped
-       
+
     }//GEN-LAST:event_txtCantidadHomeKeyTyped
 
     private void txtCantidadHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadHomeKeyPressed
@@ -1778,7 +1803,7 @@ public class frmInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCantidadHomeKeyPressed
 
     private void txtIdHomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHomeKeyTyped
-        
+
     }//GEN-LAST:event_txtIdHomeKeyTyped
 
     private void txtIdHomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdHomeKeyPressed
@@ -1808,14 +1833,6 @@ public class frmInicio extends javax.swing.JFrame {
         TotalPagar();
         txtIdHome.requestFocus();
     }//GEN-LAST:event_btnEliminarventaActionPerformed
-
-    private void txtIdCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdCliActionPerformed
-
-    private void txtDescripcionHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionHomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionHomeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2014,4 +2031,143 @@ public class frmInicio extends javax.swing.JFrame {
         txtDirecHome.setText("");
         txtRazonHome.setText("");
     }
+    
+    private void pdf(){
+        try {
+            int id = vConex.IdVenta();
+            FileOutputStream archivo;
+            File file = new File("src/pdf/venta"+id+".pdf");
+            archivo = new FileOutputStream(file);
+            Document doc = new Document();
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+            Image img = Image.getInstance("src/Image/almacenes-tia-logo.png");
+            
+            
+            Paragraph fecha = new Paragraph();
+            Font negrita = new Font(Font.FontFamily.TIMES_ROMAN,12,Font.BOLD, BaseColor.RED);
+            fecha.add(Chunk.NEWLINE);
+            Date date = new Date();
+            fecha.add("Factura:"+id+"\n"+ "\nFecha: "+ new SimpleDateFormat("dd-MM-yyyy").format(date)+"\n\n");
+            
+            PdfPTable Encabezado = new PdfPTable(4);
+            Encabezado.setWidthPercentage(100);
+            Encabezado.getDefaultCell().setBorder(0);
+            float[] ColumnaEncabezado = new float[]{20f, 30f, 70f, 40f};
+            Encabezado.setWidths(ColumnaEncabezado);
+            Encabezado.setHorizontalAlignment(Element.ALIGN_LEFT);
+            Encabezado.addCell(img);
+            
+            String ruc= "0990017514001";
+            String nom = "Tia S.A.";
+            String tef = "0986034444";
+            String dir = "Chimborazo 217 Luque - Velez";
+            String ra = "Tiendas Industriales Asociadas Tia S. A.";
+            
+            Encabezado.addCell("");
+            Encabezado.addCell("Ruc: "+ruc+ "\nNombre: "+nom+ "\nTelefono: "+tef+ "\nDireccion: "+dir+ "\nRazon: "+ra);
+            Encabezado.addCell(fecha);
+            doc.add(Encabezado);
+            
+            Paragraph cli = new Paragraph();
+            cli.add(Chunk.NEWLINE);
+            cli.add("Datos para los Clientes"+ "\n\n");
+            doc.add(cli);
+            
+            PdfPTable tablaCli = new PdfPTable(4);
+            tablaCli.setWidthPercentage(100);
+            tablaCli.getDefaultCell().setBorder(0);
+            float[] ColumnaCli = new float[]{20f, 50f, 30f, 40f};
+            tablaCli.setWidths(ColumnaCli);
+            tablaCli.setHorizontalAlignment(Element.ALIGN_LEFT);
+            PdfPCell cl1 = new PdfPCell(new Phrase("Ci/RUC", negrita));
+            PdfPCell cl2 = new PdfPCell(new Phrase("Nombre", negrita));
+            PdfPCell cl3 = new PdfPCell(new Phrase("Telefono", negrita));
+            PdfPCell cl4 = new PdfPCell(new Phrase("Direccion", negrita));
+            cl1.setBorder(0);
+            cl2.setBorder(0);
+            cl3.setBorder(0);
+            cl4.setBorder(0);
+            tablaCli.addCell(cl1);
+            tablaCli.addCell(cl2);
+            tablaCli.addCell(cl3);
+            tablaCli.addCell(cl4);
+            tablaCli.addCell(txtCiHome.getText());
+            tablaCli.addCell(txtNombreCliHome.getText());
+            tablaCli.addCell(txttelefHome.getText());
+            tablaCli.addCell(txtDirecHome.getText());
+            
+            doc.add(tablaCli);
+            
+            //productos
+            
+            PdfPTable tablaProduc = new PdfPTable(4);
+            tablaProduc.setWidthPercentage(100);
+            tablaProduc.getDefaultCell().setBorder(0);
+            float[] ColumnaProduc = new float[]{10f, 50f, 15f, 20f};
+            tablaProduc.setWidths(ColumnaProduc);
+            tablaProduc.setHorizontalAlignment(Element.ALIGN_LEFT);
+            PdfPCell pro1 = new PdfPCell(new Phrase("Cant.", negrita));
+            PdfPCell pro2 = new PdfPCell(new Phrase("Descripcion", negrita));
+            PdfPCell pro3 = new PdfPCell(new Phrase("Precio U.", negrita));
+            PdfPCell pro4 = new PdfPCell(new Phrase("Precio T.", negrita));
+            pro1.setBorder(0);
+            pro2.setBorder(0);
+            pro3.setBorder(0);
+            pro4.setBorder(0);
+            pro1.setBackgroundColor(BaseColor.DARK_GRAY);
+            pro2.setBackgroundColor(BaseColor.DARK_GRAY);
+            pro3.setBackgroundColor(BaseColor.DARK_GRAY);
+            pro4.setBackgroundColor(BaseColor.DARK_GRAY);
+            tablaProduc.addCell(pro1);
+            tablaProduc.addCell(pro2);
+            tablaProduc.addCell(pro3);
+            tablaProduc.addCell(pro4);
+            for (int i = 0; i < jtbTablaHome.getRowCount(); i++) {
+                String producto = jtbTablaHome.getValueAt(i, 1).toString();
+                String cantidad = jtbTablaHome.getValueAt(i, 2).toString();
+                String precio = jtbTablaHome.getValueAt(i, 3).toString();
+                String total = jtbTablaHome.getValueAt(i, 4).toString();
+                tablaProduc.addCell(cantidad);
+                tablaProduc.addCell(producto);
+                tablaProduc.addCell(precio);
+                tablaProduc.addCell(total);
+            }
+            
+            doc.add(tablaProduc);
+            
+            Paragraph info = new Paragraph();
+            info.add(Chunk.NEWLINE);
+            info.add("Total a Pagar: "+ totalPagar);
+            info.setAlignment(Element.ALIGN_RIGHT);
+            doc.add(info);
+            
+            Paragraph firma = new Paragraph();
+            firma.add(Chunk.NEWLINE);
+            firma.add("Cancelación y Firma\n\n");
+            firma.add("___________________________________");
+            firma.setAlignment(Element.ALIGN_CENTER);
+            doc.add(firma);
+            
+            Paragraph mensaje = new Paragraph();
+            mensaje.add(Chunk.NEWLINE);
+            mensaje.add("Gracias por su Compra.");
+            mensaje.setAlignment(Element.ALIGN_CENTER);
+            doc.add(mensaje);
+
+            doc.close();
+            archivo.close();
+            Desktop.getDesktop().open(file);
+            
+        } catch (DocumentException | IOException e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+
+    // Método para actualizar el JLabel lblVendedor con el nombre de usuario
+    public void actualizarLabelVendedor(String nombreUsuario) {
+        lblVendedor.setText(nombreUsuario);
+    }
 }
+

@@ -23,29 +23,27 @@ public class ClienteControlador {
     PreparedStatement ps;
     ResultSet rs;
     
-
-    public void validarCliente(Clientes cliente) throws DatoDuplicadoExcepcion, LecturaExcepcion, SQLException, EscrituraExcepcion {
+    
+   public void validarCliente(Clientes cliente) throws DatoDuplicadoExcepcion, LecturaExcepcion, SQLException, EscrituraExcepcion {
         // Validación del CI
-        
-        if (cliente.getCi() <= 0 || String.valueOf(cliente.getCi()).length() != 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de exactamente 10 dígitos.");
+        if (cliente.getCi().isEmpty() || cliente.getCi().length() != 10) {
+            throw new EscrituraExcepcion("CI inválido. Debe ser una cadena no vacía de exactamente 10 digitos.");
         }
-        
-        if (cliente.getCi() <= 0 || String.valueOf(cliente.getCi()).length() > 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de máximo 10 dígitos.");
+        if(cliente.getCi().isEmpty()|| cliente.getCi().length()>10){
+            throw new EscrituraExcepcion("CI invalido. Debe ser un número positivo de máximo 10 digitos.");
         }
-        
+
         // Validación de campos obligatorios
         if (cliente.getNombre().isEmpty() || cliente.getDireccion().isEmpty() || cliente.getRazon().isEmpty()) {
             throw new EscrituraExcepcion("Debe ingresar nombre, dirección y razón social.");
         }
-        
-        int telefonoLength = String.valueOf(cliente.getTelefono()).length();
+
+        int telefonoLength = cliente.getTelefono().length();
         if (telefonoLength != 9 && telefonoLength != 10) {
             throw new EscrituraExcepcion("Número de teléfono inválido. Debe tener 9 o 10 dígitos.");
         }
         
-        // Validación de CI duplicado
+         // Validación de CI duplicado
         if (existeCi(cliente.getCi())) {
             throw new DatoDuplicadoExcepcion("Ya existe un cliente registrado con este CI.");
         }
@@ -54,16 +52,18 @@ public class ClienteControlador {
         if (existeNombre(cliente.getNombre())) {
             throw new DatoDuplicadoExcepcion("Ya existe un cliente registrado con este nombre.");
         }
+
     }
+
     
     public void validarModificar(Clientes cliente) throws DatoDuplicadoExcepcion, LecturaExcepcion, SQLException, EscrituraExcepcion {
         // Validación del CI
         
-        if (cliente.getCi() <= 0 || String.valueOf(cliente.getCi()).length() != 10) {
-            throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de exactamente 10 dígitos.");
+        if (cliente.getCi().length() != 10) {
+            throw new EscrituraExcepcion("CI inválido. Debe tener exactamente 10 dígitos.");
         }
         
-        if (cliente.getCi() <= 0 || String.valueOf(cliente.getCi()).length() > 10) {
+        if (cliente.getCi().length() > 10) {
             throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de máximo 10 dígitos.");
         }
         
@@ -88,9 +88,9 @@ public class ClienteControlador {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
             // Establecer valores en la sentencia SQL
-            ps.setInt(1, cliente.getCi());
+            ps.setString(1, cliente.getCi());
             ps.setString(2, cliente.getNombre());
-            ps.setInt(3, cliente.getTelefono());
+            ps.setString(3, cliente.getTelefono());
             ps.setString(4, cliente.getDireccion());
             ps.setString(5, cliente.getRazon());
             // Ejecutar la sentencia SQL
@@ -120,9 +120,9 @@ public class ClienteControlador {
                 Clientes cl = new Clientes();
                 // Conversión de datos String a entero
                 cl.setId(Integer.parseInt(rs.getString("id")));
-                cl.setCi(Integer.parseInt(rs.getString("Ci")));
+                cl.setCi(rs.getString("Ci"));
                 cl.setNombre(rs.getString("nombre"));
-                cl.setTelefono(Integer.parseInt(rs.getString("telefono")));
+                cl.setTelefono(rs.getString("telefono"));
                 cl.setDireccion(rs.getString("direccion"));
                 cl.setRazon(rs.getString("razon"));
                 ListaCli.add(cl);
@@ -163,9 +163,9 @@ public class ClienteControlador {
             validarModificar(cliente);
             // Establecer valores en la sentencia SQL
             ps = con.prepareStatement(sql);
-            ps.setInt(1, cliente.getCi());
+            ps.setString(1, cliente.getCi());
             ps.setString(2, cliente.getNombre());
-            ps.setInt(3, cliente.getTelefono());
+            ps.setString(3, cliente.getTelefono());
             ps.setString(4, cliente.getDireccion());
             ps.setString(5, cliente.getRazon());
             ps.setInt(6, cliente.getId());
@@ -189,7 +189,7 @@ public class ClienteControlador {
             rs = ps.executeQuery();
             if(rs.next()){
                 cl.setNombre(rs.getString("nombre"));
-                cl.setTelefono(rs.getInt("telefono"));
+                cl.setTelefono(rs.getString("telefono"));
                 cl.setDireccion(rs.getString("direccion"));
                 cl.setRazon(rs.getString("razon"));
             }
@@ -200,11 +200,11 @@ public class ClienteControlador {
     }
     
 
-    private boolean existeCi(int ci) throws SQLException {
+    private boolean existeCi(String ci) throws SQLException {
         String sql = "SELECT COUNT(*) FROM cliente WHERE Ci=?";
         con = cn.getConexion();
         ps = con.prepareStatement(sql);
-        ps.setInt(1, ci);
+        ps.setString(1, ci);
         rs = ps.executeQuery();
         return rs.next() && rs.getInt(1) > 0;
     }

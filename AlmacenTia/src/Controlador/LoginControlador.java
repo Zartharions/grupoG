@@ -33,11 +33,15 @@ public class LoginControlador {
             // Verifica si el usuario es válido
             if (esUsuarioValido(objConexion, usuario.getText(), contra)) {
                 mostrarMensaje(USER_SUCCESS_MESSAGE);
-                abrirVentanaInicio();
+
+                // Obtener el nombre de usuario
+                String nombreUsuario = usuario.getText();
+
+                // Abrir la ventana de inicio y pasar el nombre de usuario
+                abrirVentanaInicio(nombreUsuario);
             } else {
                 mostrarMensaje(USER_FAILURE_MESSAGE);
             }
-
         } catch (Exception e) {
             mostrarMensaje(ERROR_MESSAGE + e.toString());
         }
@@ -67,9 +71,12 @@ public class LoginControlador {
     /**
      * Método para abrir la ventana de inicio después de una sesión exitosa.
      */
-    private void abrirVentanaInicio() {
+    private void abrirVentanaInicio(String nombreUsuario) {
         frmInicio objInicio = new frmInicio();
         objInicio.setVisible(true);
+
+        // Actualizar el JLabel lblVendedor con el nombre de usuario
+        objInicio.actualizarLabelVendedor(nombreUsuario);
     }
 
     /**

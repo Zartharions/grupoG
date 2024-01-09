@@ -27,11 +27,11 @@ public class ProveedorControlador {
     public void validarProveedor(Proveedor proveedor) throws DatoDuplicadoExcepcion, LecturaExcepcion, SQLException, EscrituraExcepcion {
         // Validación del CI
         
-        if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() != 10) {
+        if (proveedor.getRuc().isEmpty() || String.valueOf(proveedor.getRuc()).length() != 10) {
             throw new EscrituraExcepcion("RUC inválido. Debe ser un número positivo de exactamente 10 dígitos.");
         }
         
-        if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() > 10) {
+        if (proveedor.getRuc().isEmpty()|| String.valueOf(proveedor.getRuc()).length() > 10) {
             throw new EscrituraExcepcion("CI inválido. Debe ser un número positivo de máximo 10 dígitos.");
         }
         
@@ -59,7 +59,7 @@ public class ProveedorControlador {
     public void validarModificar(Proveedor proveedor) throws DatoDuplicadoExcepcion, LecturaExcepcion, SQLException, EscrituraExcepcion {
         // Validación del CI
         
-        if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() != 10) {
+        if (proveedor.getRuc().isEmpty() || String.valueOf(proveedor.getRuc()).length() != 10) {
             throw new EscrituraExcepcion("RUC inválido. Debe ser un número positivo de exactamente 10 dígitos.");
         }
         
@@ -67,7 +67,7 @@ public class ProveedorControlador {
             throw new DatoDuplicadoExcepcion("Ya existe un proveedor registrado con este nombre.");
         }
         
-        if (proveedor.getRuc() <= 0 || String.valueOf(proveedor.getRuc()).length() > 10) {
+        if (proveedor.getRuc().isEmpty()|| String.valueOf(proveedor.getRuc()).length() > 10) {
             throw new EscrituraExcepcion("Ruc inválido. Debe ser un número positivo de máximo 10 dígitos.");
         }
         
@@ -89,9 +89,9 @@ public class ProveedorControlador {
             con = cn.getConexion();
             validarProveedor(pr);
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pr.getRuc());
+            ps.setString(1, pr.getRuc());
             ps.setString(2, pr.getNombre());
-            ps.setInt(3, pr.getTelefono());
+            ps.setString(3, pr.getTelefono());
             ps.setString(4, pr.getDireccion());
             ps.setString(5, pr.getRazon());
             ps.execute();
@@ -115,9 +115,9 @@ public class ProveedorControlador {
             while (rs.next()) {
                 Proveedor pr = new Proveedor();
                 pr.setId(rs.getInt("id"));
-                pr.setRuc(rs.getInt("Ruc"));
+                pr.setRuc(rs.getString("Ruc"));
                 pr.setNombre(rs.getString("nombre"));
-                pr.setTelefono(rs.getInt("telefono"));
+                pr.setTelefono(rs.getString("telefono"));
                 pr.setDireccion(rs.getString("direccion"));
                 pr.setRazon(rs.getString("razon"));
                 listaProveedores.add(pr);
@@ -154,9 +154,9 @@ public class ProveedorControlador {
             
 
             ps = con.prepareStatement(sql);
-            ps.setInt(1, pr.getRuc());
+            ps.setString(1, pr.getRuc());
             ps.setString(2, pr.getNombre());
-            ps.setInt(3, pr.getTelefono());
+            ps.setString(3, pr.getTelefono());
             ps.setString(4, pr.getDireccion());
             ps.setString(5, pr.getRazon());
             ps.setInt(6, pr.getId());
@@ -170,11 +170,11 @@ public class ProveedorControlador {
         }
     }
 
-    private boolean existeRuc(int ruc) throws SQLException {
+    private boolean existeRuc(String ruc) throws SQLException {
         String sql = "SELECT COUNT(*) FROM proveedor WHERE Ruc=?";
         con = cn.getConexion();
         ps = con.prepareStatement(sql);
-        ps.setInt(1, ruc);
+        ps.setString(1, ruc);
         rs = ps.executeQuery();
         return rs.next() && rs.getInt(1) > 0;
     }

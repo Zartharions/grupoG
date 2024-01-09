@@ -5,13 +5,13 @@ package Modelo;
  * @author usuario
  */
 public class Config {
-    int id,ruc,telefono;
-    String nombre, direccion, razon;
+    int id;
+    String nombre, direccion, razon, ruc, telefono;
 
     public Config() {
     }
 
-    public Config(int id, int ruc, int telefono, String nombre, String direccion, String razon) {
+    public Config(int id, String ruc, String telefono, String nombre, String direccion, String razon) {
         this.id = id;
         this.ruc = ruc;
         this.telefono = telefono;
@@ -28,19 +28,19 @@ public class Config {
         this.id = id;
     }
 
-    public int getRuc() {
+    public String getRuc() {
         return ruc;
     }
 
-    public void setRuc(int ruc) {
+    public void setRuc(String ruc) {
         this.ruc = ruc;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
