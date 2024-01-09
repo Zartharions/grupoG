@@ -14,7 +14,7 @@ insert into Usuario(Nombre, contraseña,tipos_usuarios)
 values ('admin','adm123','Administrador');
 
 insert into Usuario(Nombre, contraseña,tipos_usuarios)
-values ('Ron','ron123','Usuario');
+values ('Ron','ron123','Administrador');
 
 SELECT * FROM usuario where usuario.Nombre='admin' and usuario.contraseña='adm123';
 
@@ -74,3 +74,7 @@ create table Config(
 );
 
 select * from clientes;
+
+ALTER TABLE clientes MODIFY Ci VARCHAR(255);
+
+drop table config;
