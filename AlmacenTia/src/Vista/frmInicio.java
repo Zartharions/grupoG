@@ -471,10 +471,15 @@ public class frmInicio extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jtbTablaHome);
         if (jtbTablaHome.getColumnModel().getColumnCount() > 0) {
             jtbTablaHome.getColumnModel().getColumn(0).setPreferredWidth(30);
+            jtbTablaHome.getColumnModel().getColumn(0).setHeaderValue("Codigo");
             jtbTablaHome.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jtbTablaHome.getColumnModel().getColumn(1).setHeaderValue("Descripción");
             jtbTablaHome.getColumnModel().getColumn(2).setPreferredWidth(30);
+            jtbTablaHome.getColumnModel().getColumn(2).setHeaderValue("Cantidad");
             jtbTablaHome.getColumnModel().getColumn(3).setPreferredWidth(30);
+            jtbTablaHome.getColumnModel().getColumn(3).setHeaderValue("Precio U.");
             jtbTablaHome.getColumnModel().getColumn(4).setPreferredWidth(40);
+            jtbTablaHome.getColumnModel().getColumn(4).setHeaderValue("Total");
         }
 
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -618,7 +623,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addGap(14, 14, 14))
         );
 
-        tbpTabla.addTab("tab1", jPanel3);
+        tbpTabla.addTab("Principal", jPanel3);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -824,7 +829,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        tbpTabla.addTab("tab2", jPanel4);
+        tbpTabla.addTab("Cliente", jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1027,7 +1032,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tbpTabla.addTab("tab3", jPanel5);
+        tbpTabla.addTab("Proveedor", jPanel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1216,7 +1221,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tbpTabla.addTab("tab4", jPanel6);
+        tbpTabla.addTab("Productos", jPanel6);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1259,7 +1264,7 @@ public class frmInicio extends javax.swing.JFrame {
                 .addContainerGap(161, Short.MAX_VALUE))
         );
 
-        tbpTabla.addTab("tab5", jPanel7);
+        tbpTabla.addTab("Ventas", jPanel7);
 
         getContentPane().add(tbpTabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 200, 720, 610));
 
@@ -1813,7 +1818,7 @@ public class frmInicio extends javax.swing.JFrame {
                 pro = proConex.BuscarPro(cod);
                 if(pro.getNombre()!= null){
                     txtDescripcionHome.setText(""+pro.getNombre());
-                    txtPrecioHome.setText(""+pro.getPrecio());
+                     txtPrecioHome.setText(""+pro.getPrecio()); // Formatear precio a decimal con dos decimales
                     txtStockHome.setText(""+pro.getStock());
                     txtCantidadHome.requestFocus();
                 }else{
